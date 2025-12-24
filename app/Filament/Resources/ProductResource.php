@@ -39,6 +39,18 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('quantity')
                     ->required()
                     ->numeric(),
+                Forms\Components\Select::make('categories')
+                    ->relationship('categories', 'category_name')
+                    ->multiple()
+                    ->preload(),
+                Forms\Components\Textarea::make('product_description_short')
+                    ->label('Short Description')
+                    ->required()
+                    ->maxLength(65535),
+                Forms\Components\Textarea::make('product_description_long')
+                    ->label('Long Description')
+                    ->nullable()
+                    ->columnSpanFull(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('product_image')
                     ->collection('product_images')
                     ->image()
@@ -65,6 +77,9 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('categories.category_name')
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

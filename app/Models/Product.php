@@ -16,6 +16,13 @@ class Product extends Model implements HasMedia
         'product_code',
         'price',
         'tanggal_masuk',
-        'quantity'
+        'quantity',
+        'product_description_short',
+        'product_description_long'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
+    }
 }
